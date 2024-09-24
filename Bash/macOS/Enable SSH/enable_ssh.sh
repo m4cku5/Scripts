@@ -14,7 +14,7 @@ logDir="/Library/Logs/Microsoft/IntuneScripts/$scriptName"
 log="$logDir/$scriptName.log"
 
 # Turn on SSH service.
-enable_ssh() {
+function enable_ssh() {
     printf "$(date) | Enabling SSH service.\n"
     systemsetup -setremotelogin on
     printf "$(date) | Enabled SSH service.\n"
@@ -22,7 +22,7 @@ enable_ssh() {
 }
 
 # Check if SSH service is off.
-is_off() {
+function is_off() {
     printf "$(date) | Checking if SSH service is on.\n"
     if systemsetup -getremotelogin | grep -q "On"; then
         printf "$(date) | SSH service is on.\n"
@@ -37,7 +37,7 @@ is_off() {
 }
 
 # Create log directory, log file, and begin logging.
-log() {
+function log() {
     # Create log directory if it doesn't exist.
     if [[ ! -d "$logDir" ]]; then
         printf "$(date) | Creating $logDir directory to store logs.\n"
