@@ -22,14 +22,14 @@ enable_ssh() {
 }
 
 # Check if SSH service is off.
-is_ssh_off?() {
+is_off() {
     printf "$(date) | Checking if SSH service is on.\n"
     if systemsetup -getremotelogin | grep -q "On"; then
         printf "$(date) | SSH service is on.\n"
-        exit 0
+        return 1
     elif systemsetup -getremotelogin | grep -q "Off"; then
         printf "$(date) | SSH service is off.\n"
-        return true
+        return 0
     else
         printf "$(date) | Unable to determine if the SSH service is on or off.\n"
         exit 1
@@ -40,9 +40,9 @@ is_ssh_off?() {
 log() {
     # Create log directory if it doesn't exist.
     if [[ ! -d "$logDir" ]]; then
-        printf "$(date) | Creating [$logDir] directory to store logs.\n"
+        printf "$(date) | Creating $logDir directory to store logs.\n"
         mkdir -p "$logDir"
-        printf "$(date) | Created [$logDir] directory.\n"
+        printf "$(date) | Created $logDir directory.\n"
     fi
     # Begin logging.
     printf "$(date) | Begin log.\n"
@@ -51,7 +51,7 @@ log() {
 
 log
 
-if is_ssh_off?; then
+if is_off; then
     enable_ssh
 else
     exit 0
