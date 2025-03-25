@@ -28,7 +28,7 @@ Try {
 }
 
 # Specify the OU from which to retrieve computer objects
-$ou = "OU=Workstations,DC=modernmktg,DC=com"
+$ou = "OU=Workstations,DC=<domain>,DC=com"
 
 # Get all computer objects in the specified OU
 $computers = Get-ADComputer -Filter * -SearchBase $ou
